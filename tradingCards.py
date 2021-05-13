@@ -1,9 +1,4 @@
-# William Russell 201531820
-
 import openpyxl
-
-# create class Card
-
 
 class Card:
 
@@ -27,29 +22,7 @@ class Card:
     # get moves of the card
 
     def getMoves(self, Move1, Damage1, Move2, Damage2, Move3, Damage3, Move4, Damage4, Move5, Damage5):
-        """
-        getMoves holds all the moves of the card as a dictionary and adds them to a list in
-        the variable self.moves
 
-        Parameters:
-            Move1 - The cards first move
-            Damage1 - The damage factor of move 1
-
-            Move2 - The cards second move
-            Damage2 - The damage factor of move 2
-
-            Move3 - The cards third move
-            Damage3 - The damage factor of move 3
-
-            Move4 - The cards fourth move
-            Damage4 - The damage factor of move 4
-
-            Move5 - The cards fifth move
-            Damage5 - The damage factor of move 5
-
-        Returns:
-            nothing
-        """
         # holding all these moves within a dictionary card_moves
         card_moves = {Move1: Damage1,
                       Move2: Damage2,
@@ -68,15 +41,7 @@ class Card:
     # defining the shinyness of the card
 
     def getShiny(self):
-        """
-        getShiny changes the binary entry of either 0 or 1 to a true or false statement
 
-        Parameters:
-            nothing
-
-        Returns:
-            nothing
-        """
         # returns true or false depending on whether the card is shiny or not
         if(self.shiny == 1):
             self.shiny = True
@@ -116,16 +81,6 @@ class Deck:
         self.theShinyDeck = []
 
     def inputFromFile(self, theFileName):
-        """
-        inputFromFile imports the xlsx document and filters through the sheet to add the cards to the deck
-
-        Parameters:
-            theFileName - User imports a file into the program, if the file doesn't exist then a disclaimer will
-                          appear
-
-        Returns:
-            nothing
-        """
         # opening up the excel file containing the cards
         try:
             book = openpyxl.load_workbook(theFileName)
@@ -223,16 +178,7 @@ class Deck:
     # add a card to the deck
 
     def addCard(self, theCard):
-        """
-        addCard will allow the user to implement a card into the deck
 
-        Parameters:
-            theCard - The user chooses the instance, but they have to stick to certain requirements such
-                      as card type and card shinyness
-
-        Returns:
-            nothing
-        """
         # Creating the type boundary, therefore the card can only be 1 of 6 values
         if(theCard.type in ["Fire", "Water", "Air", "Astral", "Earth", "Magi"]):
 
@@ -254,16 +200,6 @@ class Deck:
     # remove a card from the deck
 
     def rmCard(self, theCard):
-        """
-        rmCard will allow the user to remove a card from the deck
-
-        Parameters:
-            theCard - The user chooses the instance, but they have to stick to certain requirements such
-                      as card type and card shinyness
-
-        Returns:
-            nothing
-        """
         try:
             self.theDeck.remove(theCard)
         except ValueError:
@@ -273,15 +209,7 @@ class Deck:
     # return the Card that is most powerful
 
     def getMostPowerful(self):
-        """
-        getMostPowerful will select the card with the highest average damage factor in the deck
 
-        Parameters:
-            nothing
-
-        Returns:
-            most_powerful_card
-        """
         # return only the cards that are present in the deck
 
         max_AVG = 0
@@ -322,15 +250,7 @@ class Deck:
     # return the average damage inflicted by all cards in the deck
 
     def getAverageDamage(self):
-        """
-        getAverageDamage will show the average damage factor of all the cards in the deck
 
-        Parameters:
-            nothing
-
-        Returns:
-            nothing
-        """
         # starting number of cards in the deck
         total_counter = 0
 
@@ -377,15 +297,7 @@ class Deck:
     # print the information of all the cards in the deck
 
     def viewAllCards(self):
-        """
-        viewAllCards will show the information of all the cards in the deck
 
-        Parameters:
-            nothing
-
-        Returns:
-            nothing
-        """
         print("\nView Cards:\n")
 
         # loop through all the cards
@@ -394,15 +306,7 @@ class Deck:
 
     # print the information of all the shiny cards in the deck
     def viewAllShinyCards(self):
-        """
-        viewAllShinyCards will show the information of all the shiny cards in the deck
 
-        Parameters:
-            nothing
-
-        Returns:
-            nothing
-        """
         print("\nView Shiny Cards:\n")
 
         # loop through all the shiny cards
@@ -411,16 +315,7 @@ class Deck:
 
     # print the information of all the cards in the deck that belong to the type of theType
     def viewAllByType(self, theType):
-        """
-        viewAllByType will show the information of all the cards in the deck that belong to a type requested
-        by the user
 
-        Parameters:
-            theType - One of the given 6 types that can be inserted by the user
-
-        Returns:
-            nothing
-        """
         print(f"\nType: {theType}\n")
 
         # loop through the all the cards
@@ -434,15 +329,7 @@ class Deck:
 
     # return all cards held within the deck as a collection.
     def getCards(self):
-        """
-        getCards will return all the information of the deck in a collection
 
-        Parameters:
-            nothing
-
-        Returns:
-            getCardsList - A list containing all the information of the deck
-        """
         # empty list that will hold all the data for the cards in the collection
         getCardList = []
 
@@ -476,15 +363,7 @@ class Deck:
 
     # This saves the Deck to an xlsx file
     def saveToFile(self, fileName):
-        """
-        saveToFile will save the cards in the deck to a new xlsx file named by the user
 
-        Parameters:
-            fileName - A new file name that is chosen by the user
-
-        Returns:
-            fileName - New xlsx document
-        """
         # creating an open workbook
         newBook = openpyxl.Workbook()
         newSheet = newBook.active
