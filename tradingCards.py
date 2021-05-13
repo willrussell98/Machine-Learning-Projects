@@ -2,11 +2,12 @@ import openpyxl
 
 class Card:
 
+    
     numCards = 0
     numShiny = 0
 
+    
     # define the initialiser
-
     def __init__(self, theName, theType, theHP, theMoves, isShiny):
         self.name = theName
         self.type = theType
@@ -19,8 +20,8 @@ class Card:
         if(self.shiny == 1):
             Card.numShiny += 1
 
+            
     # get moves of the card
-
     def getMoves(self, Move1, Damage1, Move2, Damage2, Move3, Damage3, Move4, Damage4, Move5, Damage5):
 
         # holding all these moves within a dictionary card_moves
@@ -38,8 +39,8 @@ class Card:
         # assigning the final variable from cards as a list of the moves
         self.moves = output_List
 
+        
     # defining the shinyness of the card
-
     def getShiny(self):
 
         # returns true or false depending on whether the card is shiny or not
@@ -50,6 +51,7 @@ class Card:
         else:
             return
 
+        
     # printing a description of the card
     def __str__(self):
 
@@ -73,13 +75,14 @@ class Card:
 
 # create class Deck
 
-
 class Deck:
 
+    
     def __init__(self):
         self.theDeck = []
         self.theShinyDeck = []
 
+        
     def inputFromFile(self, theFileName):
         # opening up the excel file containing the cards
         try:
@@ -159,8 +162,8 @@ class Deck:
             del Card_From_Input
             Card_From_Input = []
 
+            
     # returns the summary of the deck
-
     def __str__(self):
 
         print("\nSummary of the Deck: ")
@@ -175,8 +178,8 @@ class Deck:
         Deck.getAverageDamage(self)
         return
 
+    
     # add a card to the deck
-
     def addCard(self, theCard):
 
         # Creating the type boundary, therefore the card can only be 1 of 6 values
@@ -197,8 +200,8 @@ class Deck:
             print("There is no such type!")
             return
 
+        
     # remove a card from the deck
-
     def rmCard(self, theCard):
         try:
             self.theDeck.remove(theCard)
@@ -206,8 +209,8 @@ class Deck:
 
             return f"\nCannot remove {theCard.name}, as there is no such card in the deck.\n\n"
 
+        
     # return the Card that is most powerful
-
     def getMostPowerful(self):
 
         # return only the cards that are present in the deck
@@ -247,8 +250,8 @@ class Deck:
 
         return f"\nThe most powerful card is:\n\n{most_powerful_card}\n\nMax Average Damage Factor: {max_AVG}\n"
 
+    
     # return the average damage inflicted by all cards in the deck
-
     def getAverageDamage(self):
 
         # starting number of cards in the deck
@@ -294,8 +297,8 @@ class Deck:
         # printing the average damage factor to 1 decimal place
         return
 
+    
     # print the information of all the cards in the deck
-
     def viewAllCards(self):
 
         print("\nView Cards:\n")
@@ -304,6 +307,7 @@ class Deck:
         for i in self.theDeck:
             print(i)
 
+            
     # print the information of all the shiny cards in the deck
     def viewAllShinyCards(self):
 
@@ -313,6 +317,7 @@ class Deck:
         for i in self.theShinyDeck:
             print(i)
 
+            
     # print the information of all the cards in the deck that belong to the type of theType
     def viewAllByType(self, theType):
 
@@ -327,6 +332,7 @@ class Deck:
             if(theType == str(cardType)):
                 print(self.theDeck[i])
 
+                
     # return all cards held within the deck as a collection.
     def getCards(self):
 
@@ -361,6 +367,7 @@ class Deck:
 
         return getCardList
 
+    
     # This saves the Deck to an xlsx file
     def saveToFile(self, fileName):
 
