@@ -1,3 +1,5 @@
+# code by William Russell
+
 import numpy as np
 import matplotlib.pyplot as plt
 
