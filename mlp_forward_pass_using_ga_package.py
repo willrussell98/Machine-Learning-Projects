@@ -1,3 +1,5 @@
+# code by William Russell
+
 # install geneticalgorithm on device
 
 import numpy as np
