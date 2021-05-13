@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# uses a word-embedded dataset
+
 # define the euclidean distance
 def Euclidean(X, Y):
 
