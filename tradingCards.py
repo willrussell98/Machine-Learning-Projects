@@ -1,8 +1,9 @@
+# code by William Russell
+
 import openpyxl
 
 class Card:
 
-    
     numCards = 0
     numShiny = 0
 
