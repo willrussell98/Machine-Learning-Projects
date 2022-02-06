@@ -1,3 +1,9 @@
+###############################     NOTE     #####################################
+
+# Need to install pygame on system
+
+# Save player and background pictures in folder for complete game experience
+
 #############################     IMPORTS     ####################################
 
 import pygame as pg
