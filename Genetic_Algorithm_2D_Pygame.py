@@ -1,6 +1,6 @@
 ###############################     NOTE     #####################################
 
-# Need to install pygame on system
+# Need to install pygame on system and run on pycharm/vscode
 
 # Save player and background pictures in folder for complete game experience
 
@@ -229,8 +229,10 @@ class Player(pg.sprite.Sprite):
     def __init__(self, genotype):
         pg.sprite.Sprite.__init__(self)
         self.genotype = genotype
-        self.image = pg.image.load('bee.png').convert_alpha()
-        self.image = pg.transform.scale(self.image, (20, 20))
+        # self.image = pg.image.load('bee.png').convert_alpha()
+        # self.image = pg.transform.scale(self.image, (20, 20))
+        self.image = pg.Surface((10, 10))
+        self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.center = (100, HEIGHT / 2)
         self.pos = vec(160, 325)
@@ -327,8 +329,8 @@ class Game():
         self.average_fitness = 0
         self.lowest_fitness = 0
         self.reached_checkpoint = 0
-        self.sunflower = pg.image.load("sunflower.png").convert_alpha()
-        self.sunflower = pg.transform.scale(self.sunflower, (70, 70))
+        #self.sunflower = pg.image.load("sunflower.png").convert_alpha()
+        #self.sunflower = pg.transform.scale(self.sunflower, (70, 70))
 
     # start a new game
 
@@ -383,12 +385,14 @@ class Game():
 
     def draw(self):
 
-        # draw the background
-        self.screen.blit(background_image, background_rect)
+        # Set the background color to black
+        background_color = (0, 0, 0)  # Black color
+        self.screen.fill(background_color)
 
-        # draw the checkpoint
-        self.screen.blit(
-            self.sunflower, (checkpoint_x - 35, checkpoint_y - 35))
+        # Draw the checkpoint as a 20x20 square at the specified coordinates
+        checkpoint_color = (255, 255, 0)  # Yellow color
+        checkpoint_rect = pg.Rect(checkpoint_x - 10, checkpoint_y - 10, 20, 20)
+        pg.draw.rect(self.screen, checkpoint_color, checkpoint_rect)
 
         # draw every player
         self.all_sprites.draw(self.screen)
@@ -438,9 +442,9 @@ game = Game()
 font = pg.font.Font(None, 30)
 
 # upload images for the background
-background_image = pg.image.load("trees.jpeg").convert()
-background_image = pg.transform.scale(background_image, (1440, 650))
-background_rect = background_image.get_rect()
+# background_image = pg.image.load("trees.jpeg").convert()
+# background_image = pg.transform.scale(background_image, (1440, 650))
+# background_rect = background_image.get_rect()
 
 
 # function that displays text
