@@ -1,3 +1,4 @@
+########## IMPORT PACKAGES ##########
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -13,10 +14,10 @@ from tensorflow.keras import layers
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
-
+############# LSTM CLASS #############
 class LSTM():
 
-    # initialise variables
+    # initialise class and variables
     def __init__(self, file_path, label, start_date, end_date, early_stopping, stock_variable):
       self.file_path = file_path
       match = re.search(r'/(?P<content>[^/]+).xlsx$', file_path)
@@ -29,6 +30,7 @@ class LSTM():
       self.early_stopping = early_stopping
       self.stock_variable = stock_variable
 
+      # read in stock data and filter on date and dependent variable
       try:
         self.data = pd.read_excel(self.file_path)
       except Exception as e:
@@ -38,7 +40,7 @@ class LSTM():
       self.data = self.data[(self.data['Date'] >= self.start_date) & (self.data['Date'] < self.end_date)]
       self.data.index = self.data.pop('Date')
 
-
+    # present stock information to user
     def __str__(self):
       print(f'''
       -------------------------------------------
@@ -57,7 +59,7 @@ class LSTM():
 
       ''')
 
-
+    # visualise stock price over time
     def visualise_stock(self, data):
       plt.plot(data.index, data[self.stock_variable])
       plt.title(f"Stock {self.stock_variable} Prices Between {self.start_date} and {self.end_date}")
@@ -88,14 +90,17 @@ class LSTM():
 
       return newdf
 
-
+    # function to format the datasets inot a format suitable for tensorflow Pandas -> Numpy
     def format_input_data(self, dataframe):
+      """
+        This function converts a pandas dataframe into a numpy vector of dates, a window matrix and a dependent variable vector
+      """
       np_df = dataframe.to_numpy()
 
       # get date values
       dates = np_df[:, 0]
 
-      # reshape window matrix ie independent variables into a format suitable for tensorflow
+      # reshape window matrix ie independent variables
       independent = np_df[:, 1:-1]
       X = independent.reshape((len(dates), independent.shape[1], 1))
 
@@ -104,9 +109,11 @@ class LSTM():
 
       return dates, X.astype(np.float32), Y.astype(np.float32)
 
-
+    # function to split data into train, validation and test
     def train_valid_test_split(self, dates, X , y):
-      # set the split to 75% train, 15% validation and 15% test
+      """
+        This function splits the dataset to 75% train, 15% validation and 15% test
+      """
       train = int(len(dates) * .7)
       validation = int(len(dates) * .85)
 
@@ -114,6 +121,7 @@ class LSTM():
       dates_val, X_val, y_val = dates[train:validation], X[train:validation], y[train:validation]
       dates_test, X_test, y_test = dates[validation:], X[validation:], y[validation:]
 
+      # plot the train, validation and test split
       plt.plot(dates_train, y_train)
       plt.plot(dates_val, y_val)
       plt.plot(dates_test, y_test)
@@ -125,25 +133,28 @@ class LSTM():
       return dates_train, X_train, y_train, dates_val, X_val, y_val, dates_test, X_test, y_test
 
 
-    # Build meta LSTM model
+    # build LSTM model
     def build_model(self, X_train, y_train, X_val, y_val, window_input=(5,1), LSTM=64, dense_layer=32, activation_layer='relu',
                     target=1, loss_function='mse', learning_rate=0.001, patience_val=5, metric='mean_absolute_error', iterations=100):
 
+      # define the LSTM model architecture
       model = Sequential([layers.Input(window_input),
                           layers.LSTM(LSTM),
                           layers.Dense(dense_layer, activation=activation_layer),
                           layers.Dense(dense_layer, activation=activation_layer),
                           layers.Dense(target)])
 
+      # loss function for model training, optimizer + learning rate and evaluation metric(s) to be used during training
       model.compile(loss=loss_function,
                     optimizer=Adam(learning_rate=learning_rate),
                     metrics=[metric])
 
+      # conditional statement if early stopping is used
       if self.early_stopping == True:
-        # Define the early stopping callback
+        # define the early stopping callback
         early_stopping = EarlyStopping(monitor='val_mean_absolute_error', patience=patience_val)
 
-        # Compile and fit the model with early stopping
+        # compile and fit the model with early stopping
         model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=iterations, callbacks=[early_stopping])
 
         return model
@@ -154,26 +165,26 @@ class LSTM():
 
         return model
 
-
+    # evaluate the model
     def evaluation(self, model, dates_train, dates_val, dates_test, X_train, X_val, X_test, y_train, y_val, y_test):
-      # Generate predictions for the training, validation, and testing data
+      # generate predictions for the training, validation, and testing data
       train_predictions = model.predict(X_train).flatten()
       val_predictions = model.predict(X_val).flatten()
       test_predictions = model.predict(X_test).flatten()
 
-      # Calculate evaluation metrics (MSE and MAE) for the training data
+      # calculate evaluation metrics (MSE and MAE) for the training data
       train_mse = mean_squared_error(y_train, train_predictions)
       train_mae = mean_absolute_error(y_train, train_predictions)
 
-      # Calculate evaluation metrics (MSE and MAE) for the validation data
+      # calculate evaluation metrics (MSE and MAE) for the validation data
       val_mse = mean_squared_error(y_val, val_predictions)
       val_mae = mean_absolute_error(y_val, val_predictions)
 
-      # Calculate evaluation metrics (MSE and MAE) for the testing data
+      # calculate evaluation metrics (MSE and MAE) for the testing data
       test_mse = mean_squared_error(y_test, test_predictions)
       test_mae = mean_absolute_error(y_test, test_predictions)
 
-      # Print the evaluation metrics
+      # print the evaluation metrics
       print("\nEvaluation Metrics:\n")
       print(f"Train MSE: {train_mse:.4f}\n")
       print(f"Train MAE: {train_mae:.4f}\n")
@@ -182,7 +193,7 @@ class LSTM():
       print(f"Test MSE: {test_mse:.4f}\n")
       print(f"Test MAE: {test_mae:.4f}\n")
 
-      # Assess the model's performance
+      # assess the model's performance
       print("\nModel Performance:\n")
       if train_mse < val_mse and train_mse < test_mse:
           print("The model has performed well on the training data.\n")
@@ -205,7 +216,7 @@ class LSTM():
       else:
           print("The model's performance is similar across different datasets.\n")
 
-      # Determine if the model's performance is good or bad
+      # determine if the model's performance is good or bad
       if train_mse < 0.1 and val_mse < 0.1 and test_mse < 0.1:
           print("The model's performance is excellent!\n")
       elif train_mse < 0.5 and val_mse < 0.5 and test_mse < 0.5:
@@ -215,7 +226,7 @@ class LSTM():
       else:
           print("The model's performance needs improvement.\n")
 
-      # Plot the predictions and observations
+      # plot the predictions and observations
       plt.plot(dates_train, train_predictions)
       plt.plot(dates_train, y_train)
       plt.plot(dates_val, val_predictions)
@@ -231,19 +242,21 @@ class LSTM():
 
 
 
-
-
+############# PROGRAM  ##############
 def main(stock_list, start, end, window, early_termination, dependent):
 
+  # variables to determine best algorithm at the end of the loop
   best_mse = 10000
   Stock1 = None
   best_mae = 10000
   Stock2 = None
-
+    
   try:
+    # loop through stocks and compute each model
     for stock in stock_list:
       lstm = LSTM(file_path=f'/content/{stock}.xlsx', label=stock, start_date=start, end_date=end, early_stopping=early_termination, stock_variable=dependent)
       lstm.__str__()
+      # conditional statement to ignore stocks who have no data for a specific dat range
       if len(lstm.data) > 0:
         lstm.visualise_stock(lstm.data)
         lstm_df = lstm.create_window_dataframe(lstm.data, n=window)
@@ -278,12 +291,11 @@ def main(stock_list, start, end, window, early_termination, dependent):
         -------------------------------------------
 
         ''')
-
+    
 
 
 ######## STOCKS ###########
 stock_list = ['META', 'DOW', 'GOOG']
-###########################
 
 ######## CONFIG ###########
 start_date = "2018-01-01"
@@ -295,10 +307,11 @@ today = date.today()
 files = []
 successful_tickers = []
 data_folder = "/content/"
-###########################
 
+###### DOWNLOAD DATA ######
 print(f"Downloading stock data from Yahoo Finance\n")
 
+# get data from yahoo finance using api
 def getData(ticker):
     print(ticker)
     data = yf.download(ticker, start=start_date, end=end_date)
@@ -311,19 +324,22 @@ def getData(ticker):
         print(f"Data for {ticker} couldn't be downloaded. Deleting corresponding file.\n")
         deleteFile(data_folder + ticker + '.xlsx')
 
+# saves data to colab environment
 def SaveData(df, filename):
     df.to_excel(data_folder + filename + '.xlsx')
-
+    
+# delete file from colab environment
 def deleteFile(file_path):
     if os.path.exists(file_path):
         os.remove(file_path)
         print(f"Deleted file: {file_path}\n")
 
-# This loop will iterate over the ticker list, get data, and save all columns as a file.
+# this loop will iterate over the ticker list, get data, and save all columns as a file.
 for ticker in stock_list:
     getData(ticker)
 
 stock_list = successful_tickers
 
+###### RUN PROGRAM ######
 if __name__ == "__main__":
   main(stock_list, start_date, end_date, window, early_termination, dependent)
