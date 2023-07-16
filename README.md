@@ -8,7 +8,7 @@ Genetic_Algorithm_2D_Pygame
 
 * Installation and Usage: Need to install Pygame and provide pictures for sprites.
   
-* Technologies Used: Pygame, Pandas, Numpy and MatPlotLib.
+* Technologies Used: pygame, pandas, numpy and matplotlib.
 
 ----------------------------
 LSTMStockPriceForecasting
@@ -17,7 +17,7 @@ LSTMStockPriceForecasting
 
 * Installation and Usage: Need to install the packages in the bullet point below. Modify the stock_list variable in the main function to include the desired stock tickers. Adjust the configuration parameters in the main function, such as start date, end date, window, early termination, and dependent variable.
   
-* Technologies Used: Numpy, Pandas, Tensorflow, Matplotlib, re, Pandas_datareader, Datetime, yfinance, os, Scikit-learn
+* Technologies Used: numpy, pandas, tensorflow, matplotlib, re, pandas_datareader, datetime, yfinance, os, scikit-learn
 
 --------------------------------
 K_Means_and_K_medians_algorithm
@@ -26,7 +26,7 @@ K_Means_and_K_medians_algorithm
 
 * Installation and Usage: Run in terminal or notebook.
   
-* Technologies Used: Pandas, Numpy and MatPlotLib.
+* Technologies Used: pandas, numpy and matplotlib.
 
 ---------------------------------------
 Simple Multi Layer Perceptron
@@ -35,7 +35,7 @@ Simple Multi Layer Perceptron
 
 * Installation and Usage: Run in terminal or notebook.
   
-* Technologies Used: Pandas, Numpy and MatPlotLib.
+* Technologies Used: pandas, numpy and matplotlib.
 
 ---------------------------------------
 Perceptron_algorithm_2d_3d_4d
@@ -44,7 +44,7 @@ Perceptron_algorithm_2d_3d_4d
 
 * Installation and Usage: Run in terminal or notebook.
   
-* Technologies Used: Pandas, Numpy and MatPlotLib.
+* Technologies Used: pandas, numpy and matplotlib.
 
 ---------------------------------------
 tradingCards
@@ -53,5 +53,5 @@ tradingCards
 
 * Installation and Usage: Run in terminal or notebook.
   
-* Technologies Used: Pandas, Numpy and MatPlotLib.
+* Technologies Used: pandas, numpy and matplotlib.
 
