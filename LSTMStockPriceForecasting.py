@@ -112,7 +112,7 @@ class LSTM():
     # function to split data into train, validation and test
     def train_valid_test_split(self, dates, X , y):
       """
-        This function splits the dataset to 75% train, 15% validation and 15% test
+        This function splits the dataset to 70% train, 15% validation and 15% test
       """
       train = int(len(dates) * .7)
       validation = int(len(dates) * .85)
