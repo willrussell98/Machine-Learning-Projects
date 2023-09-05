@@ -1,4 +1,4 @@
-# Machine-Learning-and-Data-Science-projects
+# Machine-Learning-Projects
 Compilation of Machine Learning Projects
 
 ----------------------------
