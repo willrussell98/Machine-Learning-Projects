@@ -46,12 +46,4 @@ Perceptron_algorithm_2d_3d_4d
   
 * Technologies Used: pandas, numpy and matplotlib.
 
----------------------------------------
-tradingCards
----------------------------------------
-* Project Description: Back end development of trading card game.
-
-* Installation and Usage: Run in terminal or notebook.
-  
-* Technologies Used: pandas, numpy and matplotlib.
 
