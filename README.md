@@ -2,6 +2,27 @@
 Compilation of Machine Learning Projects
 
 ----------------------------
+F1 Race Predictor
+----------------------------
+* Project Description: XGBoost algorithm that predicts the outcome of Formula 1 races using historical data. The model takes into account various factors such as lap times, pit stops, driver standings, and more, to give an informed prediction on the race outcome.
+
+* Installation and Usage: Use google colab and import the datasets into the colab environment. Once the data is loaded, run the terminal. The files are below:
+- races.csv
+- drivers.csv
+- constructors.csv
+- constructor_results.csv
+- lap_times.csv
+- status.csv
+- driver_standings.csv
+- pit_stops.csv
+- qualifying.csv
+- circuits.csv
+
+Kaggle Link: https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020
+  
+* Technologies Used: Scikit-learn, pandas, numpy and matplotlib.
+
+----------------------------
 Genetic_Algorithm_2D_Pygame
 ----------------------------
 * Project Description: Game that simulates the evolution of computerised organisms using a Genetic Algorithm. Organisms will initially  act randomly and progressively work together to move to a target through the application of natural selection.
