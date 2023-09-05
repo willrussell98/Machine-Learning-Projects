@@ -1,5 +1,5 @@
-# Python-Programming
-Compilation of Python Projects
+# Machine-Learning-and-Data-Science-projects
+Compilation of Machine Learning Projects
 
 ----------------------------
 Genetic_Algorithm_2D_Pygame
