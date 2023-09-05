@@ -4,7 +4,7 @@ Compilation of Machine Learning Projects
 ----------------------------
 F1 Race Predictor
 ----------------------------
-* Project Description: XGBoost algorithm that predicts the outcome of Formula 1 races using historical data. The model takes into account various factors such as lap times, pit stops, driver standings, and more, to give an informed prediction on the race outcome.
+* Project Description: XGBoost algorithm that predicts the outcome of Formula 1 races using historical data. The model takes into account various factors such as lap times, pit stops, driver points, and more, to give an informed prediction on the race outcome.
 
 * Installation and Usage: Use google colab and import the datasets into the colab environment. Once the data is loaded, run the terminal. The files are below:
 - races.csv
