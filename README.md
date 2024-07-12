@@ -61,7 +61,7 @@ Simple Multi Layer Perceptron
 ---------------------------------------
 Perceptron_algorithm_2d_3d_4d
 ---------------------------------------
-* Project Description: Visual representation of simple perceptron model in 3 different dimensions. Script shows how hyperparamter of the model changes as the algorithm is trained.
+* Project Description: Visual representation of simple perceptron model in 3 different dimensions. Script shows how hyperparameter of the model changes as the algorithm is trained.
 
 * Installation and Usage: Run in terminal or notebook.
   
